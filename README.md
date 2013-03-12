@@ -2,7 +2,7 @@
 
 #### Datomisca is a Scala API for Datomic DB
 
-If you want to know more about Datomisca/Datomic schema go to my [recent article](http://www.mandubian.com/2013-03-04-datomisa-schema.html). What's interesting with Datomisca schema is that they are statically typed allowing some compiler validations and type inference.
+If you want to know more about Datomisca/Datomic schema go to my [recent article](http://mandubian.com/2013/03/04/datomisca-schema/). What's interesting with Datomisca schema is that they are statically typed allowing some compiler validations and type inference.
 
 #### [Shapeless HList](https://github.com/milessabin/shapeless) are heterogenous polymorphic lists 
 
@@ -77,7 +77,11 @@ val badHListEntity =
   HNil
 
 scala> badHListEntity.toAddEntity(Koala.schema)
-<console>:23: error: could not find implicit value for parameter pull: shapotomic.SchemaCheckerFromHList.Pullback2[shapeless.::[datomisca.TempId,shapeless.::[String,shapeless.::[scala.collection.immutable.Set[String],shapeless.HNil]]],shapeless.::[datomisca.RawAttribute[datomisca.DString,datomisca.CardinalityOne.type],shapeless.::[datomisca.RawAttribute[datomisca.DLong,datomisca.CardinalityOne.type],shapeless.::[datomisca.RawAttribute[datomisca.DString,datomisca.CardinalityMany.type],shapeless.HNil]]],datomisca.AddEntity]
+<console>:23: error: could not find implicit value for parameter pull: 
+  shapotomic.SchemaCheckerFromHList.Pullback2[shapeless.::[datomisca.TempId,shapeless.::[String,shapeless.::[scala.collection.immutable.Set[String],shapeless.HNil]]],
+  shapeless.::[datomisca.RawAttribute[datomisca.DString,datomisca.CardinalityOne.type],
+  shapeless.::[datomisca.RawAttribute[datomisca.DLong,datomisca.CardinalityOne.type],
+  shapeless.::[datomisca.RawAttribute[datomisca.DString,datomisca.CardinalityMany.type],shapeless.HNil]]],datomisca.AddEntity]
 ```
 
 ### Convert `DEntity` to static-typed `HList` based on schema
@@ -86,16 +90,19 @@ scala> badHListEntity.toAddEntity(Koala.schema)
 val e = Datomic.resolveEntity(tx, id)
 
 // rebuilds HList entity from DEntity statically typed by schema
-// Explicitly typing the val to show that the compiler builds the right HList from schema
 val postHListEntity = e.toHList(Koala.schema)
+
+// Explicitly typing the value to show that the compiler builds the right typed HList from schema
 val validateHListEntityType: Long :: String :: Long :: Set[String] :: HNil = postHListEntity
-```
+``
 
 ## Conclusion
 
 Using `HList` with compile-time schema validation is quite interesting because it provides a very basic and versatile data structure to manipulate Datomic entities in a type-safe style.
 
-Moreover, as Datomic pushes atomic data manipulation (simple facts instead of full entities), it's really cool to use `HList` instead of static structure such as case-class. For ex:
+Moreover, as Datomic pushes atomic data manipulation (simple facts instead of full entities), it's really cool to use `HList` instead of rigid static structure such as case-class. 
+
+For ex:
 
 ```scala
 val simplerOp = (id :: "kaylee" :: 5L).toAddEntity(Koala.name :: Koala.age :: HNil)
