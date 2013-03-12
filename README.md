@@ -9,10 +9,11 @@ If you want to know more about Datomisca/Datomic schema go to my [recent article
 HList are able to contain different types of data and able to keep tracks of these types.
 
 <br/>
-This project is an experience trying to :
 
-- convert HList to/from Datomic Entities
-- check HList types against schema at compile-time
+>This project is an experience trying to :
+>
+>- convert HList to/from Datomic Entities
+>- check HList types against schema at compile-time
 
 This uses :
 
@@ -84,6 +85,13 @@ scala> badHListEntity.toAddEntity(Koala.schema)
   shapeless.::[datomisca.RawAttribute[datomisca.DString,datomisca.CardinalityMany.type],shapeless.HNil]]],datomisca.AddEntity]
 ```
 
+*The compiler error is a bit weird at first but if you take a few seconds to read it, you'll see that there is nothing hard about it, it just says:_
+
+```scala
+scala> I can't convert 
+TempId :: String : Set[String] :: HNIl => Attribute[DString, one] :: Attribute[DLong, one] :: Attribute[DString, many] :: HNil
+```
+
 ### Convert `DEntity` to static-typed `HList` based on schema
 
 ```scala
@@ -94,7 +102,7 @@ val postHListEntity = e.toHList(Koala.schema)
 
 // Explicitly typing the value to show that the compiler builds the right typed HList from schema
 val validateHListEntityType: Long :: String :: Long :: Set[String] :: HNil = postHListEntity
-``
+```
 
 ## Conclusion
 
