@@ -8,8 +8,6 @@ If you want to know more about Datomisca/Datomic schema go to my [recent article
 
 HList are able to contain different types of data and able to keep tracks of these types.
 
-<br/>
-
 >This project is an experience trying to :
 >
 >- convert HList to/from Datomic Entities
@@ -85,7 +83,7 @@ scala> badHListEntity.toAddEntity(Koala.schema)
   shapeless.::[datomisca.RawAttribute[datomisca.DString,datomisca.CardinalityMany.type],shapeless.HNil]]],datomisca.AddEntity]
 ```
 
-*The compiler error is a bit weird at first but if you take a few seconds to read it, you'll see that there is nothing hard about it, it just says:_
+_The compiler error is a bit weird at first but if you take a few seconds to read it, you'll see that there is nothing hard about it, it just says:_
 
 ```scala
 scala> I can't convert 
