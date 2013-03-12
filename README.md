@@ -89,7 +89,8 @@ scala> badHListEntity.toAddEntity(Koala.schema)
 
 ```scala
 scala> I can't convert 
-TempId :: String : Set[String] :: HNIl => Attribute[DString, one] :: Attribute[DLong, one] :: Attribute[DString, many] :: HNil
+(TempId ::) String             :: Set[String]      :: HNil => 
+            Attr[DString, one] :: Attr[DLong, one] :: Attr[DString, many] :: HNil
 ```
 
 ### Convert `DEntity` to static-typed `HList` based on schema
