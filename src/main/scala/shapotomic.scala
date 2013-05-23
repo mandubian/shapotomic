@@ -66,7 +66,7 @@ package object `shapotomic` {
     implicit def caseHNil = at[DEntity, HNil]{ (entity, s) => HNil }
 
     implicit def caseHList[H, DD <: DatomicData, HL <: HList, SL <: HList, Card <: Cardinality]
-      (implicit a2er: Attribute2EntityReader[DD, Card, H],
+      (implicit a2er: Attribute2EntityReaderInj[DD, Card, H],
                 pull: Pullback2[DEntity, SL, HL]): 
       Pullback2[DEntity, Attribute[DD, Card] :: SL, H :: HL] =
         at[DEntity, Attribute[DD, Card] :: SL] { (entity, sl) =>
@@ -77,7 +77,7 @@ package object `shapotomic` {
 
     /** overloading for RawAttribute as HList is not covariant (hopefully :)) */
     implicit def caseHListRawAttribute[H, DD <: DatomicData, HL <: HList, SL <: HList, Card <: Cardinality]
-      (implicit a2er: Attribute2EntityReader[DD, Card, H],
+      (implicit a2er: Attribute2EntityReaderInj[DD, Card, H],
                 pull: Pullback2[DEntity, SL, HL]): 
       Pullback2[DEntity, RawAttribute[DD, Card] :: SL, H :: HL] =
         at[DEntity, RawAttribute[DD, Card] :: SL] { (entity, sl) =>
@@ -106,7 +106,7 @@ package object `shapotomic` {
     * using Record HList
     */
   case class DField[DD <: DatomicData, Card <: Cardinality, A](attr: Attribute[DD, Card])
-    (implicit attrC: Attribute2EntityReader[DD, Card, A]) extends Field[A]
+    (implicit attrC: Attribute2EntityReaderInj[DD, Card, A]) extends Field[A]
 
 
 }

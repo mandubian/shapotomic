@@ -37,11 +37,11 @@ object ApplicationBuild extends Build {
     settings = BuildSettings.buildSettings ++ Seq(
       resolvers ++= mandubianRepo ++ sonatypeRepo ++ datomicRepo,
       libraryDependencies ++= Seq(
-        "com.chuusai"       % "shapeless_2.10.0" % "1.2.4",
-        "pellucidanalytics" %% "datomisca" % "0.3-SNAPSHOT",
-        "com.datomic"       % "datomic-free" % "0.8.3789",
-        "org.specs2"        %% "specs2" % "1.13" % "test",
-        "junit"             % "junit" % "4.8" % "test"
+        "com.chuusai"       %% "shapeless"    % "1.2.4",
+        "pellucidanalytics" %% "datomisca"    % "0.3-SNAPSHOT",
+        "com.datomic"       %  "datomic-free" % "0.8.3814",
+        "org.specs2"        %% "specs2"       % "1.13" % "test",
+        "junit"             %  "junit"        % "4.8" % "test"
       ),
       publishMavenStyle := true,
       publishTo <<= version { (version: String) =>
