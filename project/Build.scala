@@ -45,10 +45,7 @@ object ApplicationBuild extends Build {
       ),
       publishMavenStyle := true,
       publishTo <<= version { (version: String) =>
-        val localPublishRepo = "../mandubian-mvn/"
-        if(version.trim.endsWith("SNAPSHOT"))
-          Some(Resolver.file("snapshots", new File(localPublishRepo + "/snapshots")))
-        else Some(Resolver.file("releases", new File(localPublishRepo + "/releases")))
+        Some(Resolver.file("file",  new File(Path.userHome.absolutePath+"/.m2/repository")))
       },
       scalacOptions ++= Seq(
         //"-Xlog-implicits"
